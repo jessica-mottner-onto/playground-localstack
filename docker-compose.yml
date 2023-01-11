@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+
+  localstack:
+    container_name: localstack
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/localstack
+    environment:
+      - SERVICES=sqs
+      - DEBUG=${DEBUG-}
+      - TERRAFORM_ENVIRONMENT=local
+      - AWS_DEFAULT_REGION=eu-west-2
+      - DEFAULT_REGION=eu-west-2
+      - HOSTNAME=localstack
+    ports:
+      - "4566:4566"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
